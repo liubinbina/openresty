@@ -5,7 +5,7 @@ ARG RESTY_IMAGE_TAG="buster-slim"
 
 FROM ${RESTY_IMAGE_BASE}:${RESTY_IMAGE_TAG}
 
-LABEL maintainer="Evan Wies <evan@neomantra.net>"
+ENV LANG=C.UTF-8 LC_ALL=C.UTF-8 TIMEZONE=Asia/Shanghai
 
 # Docker Build Arguments
 ARG RESTY_IMAGE_BASE="debian"
@@ -52,7 +52,9 @@ ARG RESTY_LUAJIT_OPTIONS="--with-luajit-xcflags='-DLUAJIT_NUMMODE=2 -DLUAJIT_ENA
 ARG RESTY_ADD_PACKAGE_BUILDDEPS="\
     git \
 "
-ARG RESTY_ADD_PACKAGE_RUNDEPS=""
+ARG RESTY_ADD_PACKAGE_RUNDEPS="\
+    tzdata\
+"
 ARG RESTY_EVAL_PRE_CONFIGURE=""
 ARG RESTY_EVAL_POST_MAKE=""
 
@@ -140,8 +142,9 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update \
     && cd /tmp \
     && if [ -n "${RESTY_EVAL_POST_MAKE}" ]; then eval $(echo ${RESTY_EVAL_POST_MAKE}); fi \
     && rm -rf luarocks-${RESTY_LUAROCKS_VERSION} luarocks-${RESTY_LUAROCKS_VERSION}.tar.gz \
-    && /usr/local/openresty/luajit/bin/luarocks install pgmoon \
     && if [ -n "${RESTY_ADD_PACKAGE_BUILDDEPS}" ]; then DEBIAN_FRONTEND=noninteractive apt-get remove -y --purge ${RESTY_ADD_PACKAGE_BUILDDEPS} ; fi \
+    && ln -sf /usr/share/zoneinfo/$TIMEZONE /etc/localtime \
+    && echo "$TIMEZONE" > /etc/timezone \
     && DEBIAN_FRONTEND=noninteractive apt-get autoremove -y \
     && ln -sf /dev/stdout /usr/local/openresty/nginx/logs/access.log \
     && ln -sf /dev/stderr /usr/local/openresty/nginx/logs/error.log
