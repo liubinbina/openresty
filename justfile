@@ -1,5 +1,5 @@
 build:
-    docker build . -t resty --progress=plain
+    docker build . -t resty
 
 assets:
     wget -c https://raw.githubusercontent.com/openresty/docker-openresty/master/nginx.conf
