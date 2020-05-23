@@ -1,6 +1,5 @@
 test tag="latest":
     docker run --rm \
-        --net=host \
         --name=test \
         -p 8090:80 \
         -p 8022:22 \
