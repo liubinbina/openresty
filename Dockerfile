@@ -75,6 +75,7 @@ RUN set -eux \
   ; apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
 COPY services.d /etc/services.d
+COPY reload-nginx /usr/local/bin
 COPY nginx.conf /etc/openresty
 COPY nginx-site.conf /etc/openresty/sites/default.conf
 WORKDIR /srv

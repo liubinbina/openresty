@@ -1,3 +1,4 @@
+#!/bin/sh
 openresty -t
 if [ $? -eq 0 ]
 then
