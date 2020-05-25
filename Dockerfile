@@ -16,7 +16,7 @@ ARG wasmtime_url=https://github.com/bytecodealliance/wasmtime/releases/download/
 ARG watchexec_url=https://github.com/watchexec/watchexec/releases/download/${watchexec_version}/watchexec-${watchexec_version}-x86_64-unknown-linux-musl.tar.xz
 
 ENV DEV_DEPS \
-        zsh neovim git \
+        zsh neovim git mlocate \
         gnupg openssh-server openssh-client \
         pwgen curl rsync wget \
         sudo procps tree jq unzip zstd \
