@@ -11,4 +11,4 @@ test tag="latest":
         -v $PWD/services.d/watcher/run:/etc/services.d/watcher/run \
         nnurphy/or
 
-#-v $PWD/nginx-site.conf:/etc/openresty/sites/default.conf \
+#-v $PWD/nginx-site.conf:/etc/openresty/conf.d/default.conf \
