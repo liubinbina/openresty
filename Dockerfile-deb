@@ -69,7 +69,7 @@ RUN set -eux \
       | tar Jxf - --strip-components=1 -C /usr/local/bin watchexec-${watchexec_version}-x86_64-unknown-linux-musl/watchexec \
   \
   ; curl --fail --silent -L ${s6overlay_url} \
-      | tar xzvf - -C /
+      | tar xzvf - -C / \
   \
   ; apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
