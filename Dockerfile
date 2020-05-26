@@ -53,7 +53,7 @@ RUN set -eux \
       | tee /etc/apt/sources.list.d/openresty.list \
   ; apt-get update \
   ; apt-get -y install --no-install-recommends openresty \
-  ; mkdir -p /etc/openresty/sites \
+  ; mkdir -p /etc/openresty/conf.d \
   \
   ; wget -q -O /usr/local/bin/websocat ${websocat_url} \
     ; chmod a+x /usr/local/bin/websocat \
@@ -76,7 +76,7 @@ RUN set -eux \
 COPY services.d /etc/services.d
 COPY reload-nginx /usr/local/bin
 COPY nginx.conf /etc/openresty
-COPY nginx-site.conf /etc/openresty/sites/default.conf
+COPY nginx-site.conf /etc/openresty/conf.d/default.conf
 WORKDIR /srv
 
 VOLUME [ "/srv" ]
