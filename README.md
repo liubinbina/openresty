@@ -37,7 +37,7 @@ ssh websocat
     spec:
       containers:
       - name: download
-        image: nnurphy/or:alpine
+        image: nnurphy/or
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
