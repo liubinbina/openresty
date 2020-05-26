@@ -1,4 +1,4 @@
-FROM ubuntu:focal
+FROM debian:10-slim
 
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8 TIMEZONE=Asia/Shanghai
 ENV websocat_version=1.5.0
@@ -48,12 +48,14 @@ RUN set -eux \
         -e 's!.*\(GatewayPorts\).*!\1 yes!' \
         -e 's!.*\(PasswordAuthentication\).*yes!\1 no!' \
   \
+  ; apt-get -y install --no-install-recommends software-properties-common \
   ; wget -O - https://openresty.org/package/pubkey.gpg | apt-key add - \
-  ; echo "deb http://openresty.org/package/ubuntu focal main" \
-      | tee /etc/apt/sources.list.d/openresty.list \
+  ; echo "deb http://openresty.org/package/debian buster openresty" \
+      | tee /etc/apt/sources.list.d/openresty.list
   ; apt-get update \
   ; apt-get -y install --no-install-recommends openresty \
   ; mkdir -p /etc/openresty/sites \
+  ; apt-get -y remove software-properties-common \
   \
   ; wget -q -O /usr/local/bin/websocat ${websocat_url} \
     ; chmod a+x /usr/local/bin/websocat \
