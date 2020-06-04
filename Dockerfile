@@ -5,7 +5,7 @@ ENV websocat_version=1.5.0
 ENV just_version=0.5.11
 ENV yq_version=3.3.0
 ENV wasmtime_version=0.16.0
-ENV watchexec_version=1.12.0
+ENV watchexec_version=1.13.0
 ENV s6overlay_version=2.0.0.1
 
 ARG websocat_url=https://github.com/vi/websocat/releases/download/v${websocat_version}/websocat_amd64-linux-static+udp
