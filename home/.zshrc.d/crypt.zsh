@@ -52,7 +52,8 @@ fi
 function gpw {
     local length=12
     local config='default'
-    local options=$(getopt -o c:l: -- "$@")
+    local http=''
+    local options=$(getopt -o c:l:h  -- "$@")
     eval set -- "$options"
     while true; do
         case "$1" in
@@ -64,6 +65,9 @@ function gpw {
             shift
             length="$1"
             ;;
+        -h)
+            http="true"
+            ;;
         --)
             shift
             break
@@ -72,13 +76,21 @@ function gpw {
         shift
     done
     # local pwd=$(eval "echo \"\$$config\"")
-    pwd=$(cat $PASSWORD_RULE_PATH/token/$config)
-    pwgen -B1cn ${length} -H <(echo -n "$1" | openssl dgst -sha1 -hmac "$pwd")
+    token=$(cat $PASSWORD_RULE_PATH/token/$config)
+    pwd=$(pwgen -B1cn ${length} -H <(echo -n "$1" | openssl dgst -sha1 -hmac "$token"))
+    echo $pwd
+    if [ ! -z $http ]; then
+        if (( $+commands[htpasswd] )); then
+            echo $(htpasswd -nBb $1 $pwd)
+        else
+            echo $1:$(openssl passwd -apr1 $pwd)
+        fi
+    fi
 }
 
 function _comp_gpw {
     local name
-    _arguments '-c[config]:config:->config' '-l[length]:length:' "1:item:->item"
+    _arguments '-c[config]:config:->config' '-l[length]:length:' '-h[htpasswd]' "1:item:->item"
     case "$state" in
         config)
             _alternative ":config:($(ls -A $PASSWORD_RULE_PATH/rule))"
