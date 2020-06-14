@@ -3,7 +3,7 @@ FROM ubuntu:focal
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8 TIMEZONE=Asia/Shanghai
 ENV websocat_version=1.5.0
 ENV just_version=0.5.11
-ENV yq_version=3.3.1
+ENV yq_version=3.3.2
 ENV wasmtime_version=0.16.0
 ENV watchexec_version=1.13.1
 ENV s6overlay_version=2.0.0.1
