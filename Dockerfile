@@ -52,7 +52,8 @@ RUN set -eux \
   ; echo "deb http://openresty.org/package/ubuntu focal main" \
       | tee /etc/apt/sources.list.d/openresty.list \
   ; apt-get update \
-  ; apt-get -y install --no-install-recommends openresty \
+  ; apt-get -y install --no-install-recommends openresty openresty-opm \
+  ; opm install ledgetech/lua-resty-http \
   ; mkdir -p /etc/openresty/conf.d \
   \
   ; wget -q -O /usr/local/bin/websocat ${websocat_url} \
