@@ -7,7 +7,7 @@ function s {
     local cmd="ssh "
     local show=""
     local shell=""
-    eval set -- $(getopt -o VPIi:p:u:R:L:D:ZB -- "$@")
+    eval set -- $(getopt -o VPIi:p:u:R:L:D:J:ZB -- "$@")
     while true; do
         case "$1" in
         -V)
@@ -42,6 +42,10 @@ function s {
         -D)
             shift
             cmd+="-NTvD $1 "
+            ;;
+        -J)
+            shift
+            cmd+="-J $1 "
             ;;
         -B)
             shell="/bin/bash -ic "
