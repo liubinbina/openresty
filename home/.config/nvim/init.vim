@@ -7,7 +7,7 @@ colorscheme slate
 set wildmenu
 set laststatus=1
 set ruler
-set number
+"set number
 "set cmdheight=1
 "set linespace=2
 
