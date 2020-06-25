@@ -18,8 +18,14 @@ case $(uname -sm) in
   ;;
 esac
 
+if (( $+commands[ip] )); then
+  export route=$(ip route | awk 'NR==1 {print $3}')
+else
+  export route=$(grep -m 1 nameserver /etc/resolv.conf | awk '{print $2}')
+fi
+
 if [ -n "$WSL_DISTRO_NAME" ]; then
-  export DISPLAY=$(grep -m 1 nameserver /etc/resolv.conf | awk '{print $2}'):0.0
+  export DISPLAY=${route}:0.0
 fi
 
 function change_sources {
