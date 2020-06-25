@@ -18,6 +18,10 @@ case $(uname -sm) in
   ;;
 esac
 
+if [ -n "$WSL_DISTRO_NAME" ]; then
+  export DISPLAY=$(grep -m 1 nameserver /etc/resolv.conf | awk '{print $2}'):0.0
+fi
+
 function change_sources {
   case $(grep ^ID= /etc/os-release | sed 's/ID=\(.*\)/\1/') in
     debian | ubuntu )

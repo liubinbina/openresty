@@ -1,3 +1,32 @@
+function gen-ssh-key {
+    local file='id_ed25519'
+    local comment=$(date -Iseconds)
+    local options=$(getopt -o c:f: -- "$@")
+    eval set -- "$options"
+    while true; do
+        case "$1" in
+        -c )
+            shift
+            comment="$1"
+            ;;
+        -f )
+            shift
+            file="$1"
+            ;;
+        -- )
+            shift
+            break
+            ;;
+        esac
+        shift
+    done
+    ssh-keygen -t ed25519 -f ${file} -C ${comment}
+    if (( $+commands[puttygen] )); then
+        puttygen ${file} -o ${file}.ppk
+    fi
+}
+
+alias ssh-copy-id-with-pwd='ssh-copy-id -o PreferredAuthentications=password -o PubkeyAuthentication=no -f -i'
 alias sa='ssh-agent $SHELL'
 alias sad='ssh-add'
 alias rs="rsync -avP"
