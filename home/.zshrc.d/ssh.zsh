@@ -36,11 +36,14 @@ function s {
     local cmd="ssh "
     local show=""
     local shell=""
-    eval set -- $(getopt -o VPIi:p:u:R:L:D:J:ZB -- "$@")
+    eval set -- $(getopt -o VXPIi:p:u:R:L:D:J:ZB -- "$@")
     while true; do
         case "$1" in
         -V)
             show="1"
+            ;;
+        -X)
+            cmd+="-X "
             ;;
         -P)
             password=""
