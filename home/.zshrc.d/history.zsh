@@ -22,7 +22,6 @@ setopt PUSHD_IGNORE_DUPS
 if (( $+commands[sqlite3] )); then
     source $CFG/.zshrc.d/histdb/sqlite-history.zsh
     autoload -Uz add-zsh-hook
-    add-zsh-hook precmd histdb-update-outcome
     source $CFG/.zshrc.d/histdb/histdb-interactive.zsh
     bindkey '\C-r' _histdb-isearch
 fi
