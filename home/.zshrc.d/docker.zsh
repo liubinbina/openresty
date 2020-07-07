@@ -90,13 +90,25 @@ _dvrs () {
 compdef _dvrs dvrs
 
 function ipl {
-  for i in $*; do
-    docker run -it --rm \
-        -v /var/run/docker.sock:/var/run/docker.sock \
-        -e http_proxy=$http_proxy \
-        -e https_proxy=$https_proxy \
-        nnurphy/k8su skopeo copy \
-        docker://$i \
-        docker-daemon:$i
-  done
+    if (( $+commands[skopeo] )); then
+        echo 'use local skopeo'
+        for i in $*; do
+            echo "<-- $i"
+            sleep 1
+            skopeo copy docker://$i docker-daemon:$i
+        done
+    else
+        echo 'use container skopeo'
+        for i in $*; do
+            echo "<-- $i"
+            sleep 1
+            docker run -it --rm \
+                -v /var/run/docker.sock:/var/run/docker.sock \
+                -e http_proxy=$http_proxy \
+                -e https_proxy=$https_proxy \
+                nnurphy/k8su skopeo copy \
+                docker://$i \
+                docker-daemon:$i
+        done
+    fi
 }
