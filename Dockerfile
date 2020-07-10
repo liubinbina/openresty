@@ -1,14 +1,14 @@
 FROM ubuntu:focal
 
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8 TIMEZONE=Asia/Shanghai
-ENV websocat_version=1.5.0
+ENV websocat_version=1.6.0
 ENV just_version=0.6.1
 ENV yq_version=3.3.2
 ENV wasmtime_version=0.18.0
 ENV watchexec_version=1.14.0
 ENV s6overlay_version=2.0.0.1
 
-ARG websocat_url=https://github.com/vi/websocat/releases/download/v${websocat_version}/websocat_amd64-linux-static+udp
+ARG websocat_url=https://github.com/vi/websocat/releases/download/v${websocat_version}/websocat_amd64-linux-static
 ARG s6overlay_url=https://github.com/just-containers/s6-overlay/releases/download/v${s6overlay_version}/s6-overlay-amd64.tar.gz
 ARG just_url=https://github.com/casey/just/releases/download/v${just_version}/just-v${just_version}-x86_64-unknown-linux-musl.tar.gz
 ARG yq_url=https://github.com/mikefarah/yq/releases/download/${yq_version}/yq_linux_amd64
