@@ -18,7 +18,7 @@ ARG watchexec_url=https://github.com/watchexec/watchexec/releases/download/${wat
 ENV DEV_DEPS \
         zsh neovim git mlocate \
         gnupg openssh-server openssh-client \
-        pwgen curl rsync wget \
+        pwgen curl rsync wget tcpdump \
         sudo procps tree jq unzip zstd \
         iproute2 net-tools inetutils-ping
 
