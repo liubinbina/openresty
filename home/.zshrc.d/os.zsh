@@ -4,19 +4,21 @@
 case $(uname -sm) in
   Darwin\ *64 )
     alias lns='ln -fs'
-    function after { lsof -p $1 +r 1 &>/dev/null }
+    function af { lsof -p $1 +r 1 &>/dev/null }
     alias osxattrd='xattr -r -d com.apple.quarantine'
     alias rmdss='find . -name ".DS_Store" -depth -exec rm {} \;'
     [[ -x $HOME/.iterm2_shell_integration.zsh ]]  && source $HOME/.iterm2_shell_integration.zsh
   ;;
   Linux\ *64 )
     alias lns='ln -fsr'
-    function after { tail --pid=$1 -f /dev/null }
+    function af { tail --pid=$1 -f /dev/null }
   ;;
   * )
     alias lns='ln -fsr'
   ;;
 esac
+
+compdef _kill af
 
 if (( $+commands[ip] )); then
   export route=$(ip route | awk 'NR==1 {print $3}')
