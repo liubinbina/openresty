@@ -30,9 +30,13 @@ if [ -n "$WSL_DISTRO_NAME" ]; then
   export DISPLAY=${route}:0.0
 fi
 
-function change_sources {
+function china_mirrors {
   case $(grep ^ID= /etc/os-release | sed 's/ID=\(.*\)/\1/') in
-    debian | ubuntu )
+    ubuntu )
+      cp /etc/apt/sources.list /etc/apt/sources.list.$(date +%y%m%d%H%M%S)
+      sed -i 's/archive.ubuntu.com/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list
+    ;;
+    debian )
       cp /etc/apt/sources.list /etc/apt/sources.list.$(date +%y%m%d%H%M%S)
       sed -i 's/\(.*\)\(security\|deb\).debian.org\(.*\)main/\1ftp2.cn.debian.org\3main contrib non-free/g' /etc/apt/sources.list
     ;;
