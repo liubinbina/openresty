@@ -19,7 +19,7 @@ ENV DEV_DEPS \
         zsh neovim git mlocate \
         gnupg openssh-server openssh-client \
         pwgen curl rsync wget tcpdump \
-        sudo procps tree jq unzip zstd \
+        sudo procps tree unzip zstd \
         iproute2 net-tools inetutils-ping
 
 COPY home /root/
